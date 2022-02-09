@@ -16,15 +16,15 @@ const convertion = async (request: Request, response: Response, next: NextFuncti
     const url: string = EXCHANGE_API_URL_CONVERT + '?access_key=' + API_KEY + '&base=' + currency + '&symbols=' + USD_CODE;
     
     try {
-        console.log(url);
         const axiosResponse: AxiosResponse = await axios.get(url);
         const rate: number = axiosResponse.data['rates'][USD_CODE];
-        console.log(rate);
         const result: number = (1 / rate) * (bits * BIT_USD_VALUE);
+
         return response.status(200).json({
             result: result.toFixed(4)
         });
     } catch (error) {
+        
         return response.status(400).json({
             message: STATUS_CODES[400]
         });
